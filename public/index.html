@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#16181d">
+  <title>Дневник смен</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header class="top">
+    <div class="brand">Дневник смен</div>
+    <nav class="day-nav" aria-label="Выбор дня">
+      <button class="icon-btn" id="prevDay" aria-label="Предыдущий день">‹</button>
+      <label class="day-picker">
+        <span id="dayLabel">—</span>
+        <input type="date" id="dayInput" aria-label="Выбрать дату">
+      </label>
+      <button class="icon-btn" id="nextDay" aria-label="Следующий день">›</button>
+    </nav>
+    <div class="day-chips" id="dayChips" aria-label="Дни с поездками"></div>
+  </header>
+
+  <main>
+    <section class="summary" aria-live="polite">
+      <div class="net">
+        <span class="label">На руки</span>
+        <strong id="sNet">—</strong>
+        <span class="sub" id="sNetSub"></span>
+      </div>
+      <dl class="stats">
+        <div><dt>Поездок</dt><dd id="sTrips">—</dd></div>
+        <div><dt>Выручка</dt><dd id="sRevenue">—</dd></div>
+        <div><dt>Комиссия</dt><dd id="sCommission">—</dd></div>
+      </dl>
+      <div class="split">
+        <div class="split-bar" id="splitBar" role="img" aria-label="Доля наличных и карты">
+          <span class="cash" id="splitCash"></span><span class="card" id="splitCard"></span>
+        </div>
+        <div class="split-legend">
+          <span><i class="dot cash"></i>Наличные <b id="sCash">—</b></span>
+          <span><i class="dot card"></i>Карта <b id="sCard">—</b></span>
+        </div>
+      </div>
+      <p class="settlement" id="sSettlement"></p>
+    </section>
+
+    <section class="trips">
+      <div class="trips-head">
+        <h2>Поездки</h2>
+        <button class="btn primary" id="openAdd">+ Добавить</button>
+      </div>
+      <ol class="trip-list" id="tripList"></ol>
+      <p class="empty" id="empty" hidden>
+        В этот день поездок нет.<br>Нажмите «Добавить», чтобы записать первую.
+      </p>
+      <p class="error-box" id="loadError" hidden></p>
+    </section>
+  </main>
+
+  <dialog id="addDialog" aria-labelledby="addTitle">
+    <form id="addForm" novalidate>
+      <h2 id="addTitle">Новая поездка</h2>
+      <div class="row">
+        <label>Начало<input type="time" id="fStart" required></label>
+        <label>Окончание<input type="time" id="fEnd" required></label>
+      </div>
+      <p class="hint" id="fNextDay" hidden>Окончание — на следующий день</p>
+      <p class="field-error" data-for="start end"></p>
+      <div class="row">
+        <label>Сумма, ₸<input type="number" id="fAmount" inputmode="numeric" min="1" step="1" placeholder="2400" required></label>
+        <label>Комиссия, ₸<input type="number" id="fCommission" inputmode="numeric" min="0" step="1" placeholder="360" required></label>
+      </div>
+      <p class="field-error" data-for="amount commission"></p>
+      <fieldset class="seg">
+        <legend>Оплата</legend>
+        <label><input type="radio" name="payment" value="card" checked><span>Карта</span></label>
+        <label><input type="radio" name="payment" value="cash"><span>Наличные</span></label>
+      </fieldset>
+      <p class="field-error" data-for="payment"></p>
+      <p class="form-error" id="formError" role="alert"></p>
+      <div class="actions">
+        <button type="button" class="btn" id="cancelAdd">Отмена</button>
+        <button type="submit" class="btn primary" id="saveAdd">Сохранить</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" hidden></div>
+
+  <script src="/app.js" type="module"></script>
+</body>
+</html>

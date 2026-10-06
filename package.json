@@ -1,0 +1,14 @@
+{
+  "name": "driver-shift-diary",
+  "version": "1.0.0",
+  "description": "Дневник смен водителя: API со сводкой за день, веб-клиент и тесты. Без внешних зависимостей.",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "node --test"
+  }
+}
